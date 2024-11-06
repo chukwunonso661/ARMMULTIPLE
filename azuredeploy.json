@@ -1,8 +1,54 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+"NameOfStorageAccounts": {
+    "type": "array",
+    "metadata": {
+        "description": "Enter Array of Storrage Account names"
+    }
+    
+},
+"Locations": {
+    "type": "array",
+    "metadata": {
+        "description": "Enter array of Storage Account locations"
+    }
+},"SKU": {
+    "type": "string",
+    "defaultvalue":"Standard_LRS",
+    "allowedvalues":[
+      "Standard_LRS",
+      "Premium_LRS",
+      "Standard_GRS"
+    ],
+    "metadata": {
+        "description": "Enter Array of SKUs"
+    }
+}
+    },
     "variables": {},
-    "resources": [],
+    "resources": [
+        {
+            "name": "[concat(parameters('NameOfStorageAccounts'))[copyIndex()]]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2015-06-15",
+            "location": "[parameters('Locations')[copyIndex()]]",
+            "kind":"StorageV2",
+                "sku":{
+                "name":"[parameters('SKU')]"
+            },
+            "copy":{
+                "name": "StorageAccountNameCopy",
+                "count": "[length(parameters('NameOfStorageAccounts'))]"
+            },
+            "tags": {
+                "displayName": "(parameters('NameOfStorageAccounts'))"
+            },
+            "properties": {
+                "accountType": "Standard_LRS"
+            }
+        }
+    ],
     "outputs": {}
 }

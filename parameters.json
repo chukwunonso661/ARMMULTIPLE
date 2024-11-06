@@ -1,0 +1,23 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "NameOfStorageAccounts": {
+            "value": [
+                "chukwunonsostg",
+                "chikamsostg",
+                "chibuezestg"
+            ]
+        },
+        "Locations": {
+            "value":[
+                "EastUS",
+                "Westeurope",
+                "CentralUS"
+            ]
+        },
+        "SKU": {
+            "value": "Standard_LRS"
+        }
+    }
+}
